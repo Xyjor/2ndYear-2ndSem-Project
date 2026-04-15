@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="720.0" prefWidth="860.0" stylesheets="/view/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.HomeViewController">
+   <children>
+      <Label layoutX="30.0" layoutY="30.0" styleClass="header-label" text="Dashboard Overview" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+      
+      <HBox layoutX="30.0" layoutY="100.0" spacing="30.0" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="18.399999999999977" AnchorPane.topAnchor="100.0">
+         <children>
+            <VBox prefHeight="120.0" prefWidth="180.0" styleClass="summary-card, card-blue">
+               <children>
+                  <Label styleClass="card-title" text="Total Customers" />
+                  <Label fx:id="lblTotalCustomers" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+            
+            <VBox prefHeight="120.0" prefWidth="180.0" styleClass="summary-card, card-green">
+               <children>
+                  <Label styleClass="card-title" text="Student Permits" />
+                  <Label fx:id="lblTotalPermits" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+
+            <VBox prefHeight="120.0" prefWidth="180.0" styleClass="summary-card, card-orange">
+               <children>
+                  <Label styleClass="card-title" text="Driver's Licenses" />
+                  <Label fx:id="lblTotalLicenses" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+
+            <VBox prefHeight="120.0" prefWidth="180.0" styleClass="summary-card, card-red">
+               <children>
+                  <Label styleClass="card-title" text="Car Insurances" />
+                  <Label fx:id="lblTotalInsurances" styleClass="card-value" text="0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
