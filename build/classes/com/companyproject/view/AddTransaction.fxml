@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="content-scroll" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.AddTransactionController">
+    <content>
+        <VBox spacing="18.0" styleClass="content-area">
+            <padding>
+                <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+            </padding>
+            <children>
+                <VBox spacing="6.0">
+                    <children>
+                        <Label styleClass="section-title" text="Service Transaction" />
+                        <Label styleClass="muted-text" text="Create license, permit, insurance, and OR/CR service records" />
+                    </children>
+                </VBox>
+                <GridPane hgap="18.0" vgap="18.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                    </columnConstraints>
+                    <children>
+                        <JFXTextField fx:id="transactionNoField" labelFloat="true" promptText="Transaction No *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                        <ComboBox fx:id="statusComboBox" maxWidth="Infinity" promptText="Status" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="amountField" labelFloat="true" promptText="Amount" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <ComboBox fx:id="customerComboBox" maxWidth="Infinity" promptText="Customer *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="vehicleComboBox" maxWidth="Infinity" promptText="Vehicle" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="serviceComboBox" maxWidth="Infinity" promptText="Service *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <TextArea fx:id="remarksArea" prefRowCount="4" promptText="Remarks" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <JFXButton fx:id="saveButton" buttonType="RAISED" onAction="#handleSave" styleClass="primary-button" text="Save Transaction" />
+                        <JFXButton fx:id="clearButton" onAction="#clearForm" styleClass="secondary-button" text="Clear" />
+                        <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                        <Label fx:id="statusLabel" styleClass="status-text" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

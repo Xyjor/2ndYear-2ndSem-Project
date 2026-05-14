@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="content-scroll" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.AddVehicleController">
+    <content>
+        <VBox spacing="18.0" styleClass="content-area">
+            <padding>
+                <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+            </padding>
+            <children>
+                <VBox spacing="6.0">
+                    <children>
+                        <Label styleClass="section-title" text="Vehicle Profile" />
+                        <Label styleClass="muted-text" text="Owner, registration identifiers, and vehicle details" />
+                    </children>
+                </VBox>
+                <GridPane hgap="18.0" vgap="18.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                    </columnConstraints>
+                    <children>
+                        <ComboBox fx:id="ownerComboBox" maxWidth="Infinity" promptText="Owner *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="plateNoField" labelFloat="true" promptText="Plate No" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="colorField" labelFloat="true" promptText="Color" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <JFXTextField fx:id="engineNoField" labelFloat="true" promptText="Engine No *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="chassisNoField" labelFloat="true" promptText="Chassis No *" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+
+                        <JFXTextField fx:id="makeField" labelFloat="true" promptText="Make *" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="modelField" labelFloat="true" promptText="Model *" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="modelYearField" labelFloat="true" promptText="Model Year" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <JFXButton fx:id="saveButton" buttonType="RAISED" onAction="#handleSave" styleClass="primary-button" text="Save Vehicle" />
+                        <JFXButton fx:id="clearButton" onAction="#clearForm" styleClass="secondary-button" text="Clear" />
+                        <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                        <Label fx:id="statusLabel" styleClass="status-text" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

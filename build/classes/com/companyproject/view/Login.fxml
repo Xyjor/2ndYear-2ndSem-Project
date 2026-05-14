@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="app-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.LoginController">
+    <center>
+        <StackPane>
+            <children>
+                <VBox alignment="CENTER" maxWidth="420.0" spacing="20.0" styleClass="login-panel">
+                    <padding>
+                        <Insets bottom="36.0" left="36.0" right="36.0" top="36.0" />
+                    </padding>
+                    <children>
+                        <VBox spacing="6.0">
+                            <children>
+                                <Label styleClass="app-title" text="Company DMS" />
+                                <Label styleClass="muted-text" text="Secure employee access" />
+                            </children>
+                        </VBox>
+                        <JFXTextField fx:id="usernameField" labelFloat="true" promptText="Username" />
+                        <JFXPasswordField fx:id="passwordField" labelFloat="true" onAction="#handleLogin" promptText="Password" />
+                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                            <children>
+                                <JFXButton fx:id="loginButton" buttonType="RAISED" onAction="#handleLogin" styleClass="primary-button" text="Sign In" />
+                                <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                                <Region HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                        <Label fx:id="messageLabel" styleClass="error-text" wrapText="true" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

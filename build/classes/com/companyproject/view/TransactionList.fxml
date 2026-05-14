@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" styleClass="content-area" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.TransactionListController">
+    <padding>
+        <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="12.0">
+            <children>
+                <VBox spacing="4.0">
+                    <children>
+                        <Label styleClass="section-title" text="Transactions" />
+                        <Label fx:id="statusLabel" styleClass="status-text" text="Loading..." />
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                <JFXTextField fx:id="searchField" labelFloat="true" onAction="#handleSearch" prefWidth="220.0" promptText="No, customer, or vehicle" />
+                <ComboBox fx:id="statusComboBox" prefWidth="145.0" />
+                <JFXButton fx:id="searchButton" buttonType="RAISED" onAction="#handleSearch" styleClass="secondary-button" text="Search" />
+                <JFXButton fx:id="refreshButton" onAction="#handleRefresh" styleClass="secondary-button" text="Refresh" />
+                <JFXButton fx:id="newTransactionButton" buttonType="RAISED" onAction="#handleNewTransaction" styleClass="primary-button" text="New Transaction" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <JFXButton fx:id="processingButton" onAction="#markProcessing" styleClass="secondary-button" text="Mark Processing" />
+                <JFXButton fx:id="completeButton" onAction="#markCompleted" styleClass="secondary-button" text="Complete" />
+                <JFXButton fx:id="cancelButton" onAction="#markCancelled" styleClass="secondary-button" text="Cancel" />
+            </children>
+        </HBox>
+        <TableView fx:id="transactionTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="transactionNoColumn" prefWidth="170.0" text="Transaction No" />
+                <TableColumn fx:id="customerColumn" prefWidth="200.0" text="Customer" />
+                <TableColumn fx:id="serviceColumn" prefWidth="170.0" text="Service" />
+                <TableColumn fx:id="vehicleColumn" prefWidth="210.0" text="Vehicle" />
+                <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
+                <TableColumn fx:id="amountColumn" prefWidth="100.0" text="Amount" />
+                <TableColumn fx:id="submittedColumn" prefWidth="150.0" text="Submitted" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="18.0" styleClass="content-area" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.ReportsController">
+    <padding>
+        <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="12.0">
+            <children>
+                <VBox spacing="4.0">
+                    <children>
+                        <Label styleClass="section-title" text="Operational Summary" />
+                        <Label fx:id="statusLabel" styleClass="status-text" text="Loading..." />
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                <JFXButton onAction="#loadReports" styleClass="secondary-button" text="Refresh" />
+            </children>
+        </HBox>
+        <GridPane hgap="14.0" vgap="14.0">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+            </columnConstraints>
+            <children>
+                <VBox spacing="6.0" styleClass="metric-tile" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <children>
+                        <Label styleClass="metric-label" text="Customers" />
+                        <Label fx:id="customersLabel" styleClass="metric-value" text="0" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="metric-tile" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <children>
+                        <Label styleClass="metric-label" text="Vehicles" />
+                        <Label fx:id="vehiclesLabel" styleClass="metric-value" text="0" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="metric-tile" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <children>
+                        <Label styleClass="metric-label" text="Pending" />
+                        <Label fx:id="pendingLabel" styleClass="metric-value" text="0" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="metric-tile" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <children>
+                        <Label styleClass="metric-label" text="Completed" />
+                        <Label fx:id="completedLabel" styleClass="metric-value" text="0" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="metric-tile" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                    <children>
+                        <Label styleClass="metric-label" text="Revenue" />
+                        <Label fx:id="revenueLabel" styleClass="metric-value" text="0.00" />
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+        <TableView fx:id="serviceTable" prefHeight="260.0" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="serviceColumn" prefWidth="260.0" text="Service" />
+                <TableColumn fx:id="countColumn" prefWidth="120.0" text="Count" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>

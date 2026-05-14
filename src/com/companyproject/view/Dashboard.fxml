@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane" styleClass="app-root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.DashboardController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="top-bar">
+            <padding>
+                <Insets bottom="14.0" left="24.0" right="24.0" top="14.0" />
+            </padding>
+            <children>
+                <Label styleClass="brand-label" text="Company DMS" />
+                <Label id="pageTitleLabel" fx:id="pageTitleLabel" styleClass="page-title" text="Dashboard" />
+                <Region HBox.hgrow="ALWAYS" />
+                <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                    <children>
+                        <Label fx:id="userLabel" styleClass="user-name" text="Employee" />
+                        <Label fx:id="roleLabel" styleClass="muted-text" text="Role" />
+                    </children>
+                </VBox>
+                <JFXButton onAction="#handleLogout" styleClass="ghost-button" text="Logout" />
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox prefWidth="220.0" spacing="8.0" styleClass="side-nav">
+            <padding>
+                <Insets bottom="18.0" left="16.0" right="16.0" top="18.0" />
+            </padding>
+            <children>
+                <JFXButton maxWidth="Infinity" onAction="#showCustomerRecords" styleClass="nav-button" text="Customer Records" />
+                <JFXButton maxWidth="Infinity" onAction="#showAddCustomer" styleClass="nav-button" text="Add Customer" />
+                <JFXButton maxWidth="Infinity" onAction="#showVehicleRecords" styleClass="nav-button" text="Vehicle Records" />
+                <JFXButton maxWidth="Infinity" onAction="#showAddVehicle" styleClass="nav-button" text="Add Vehicle" />
+                <JFXButton maxWidth="Infinity" onAction="#showTransactions" styleClass="nav-button" text="Transactions" />
+                <JFXButton maxWidth="Infinity" onAction="#showNewTransaction" styleClass="nav-button" text="New Transaction" />
+                <JFXButton maxWidth="Infinity" onAction="#showReports" styleClass="nav-button" text="Reports" />
+            </children>
+        </VBox>
+    </left>
+</BorderPane>

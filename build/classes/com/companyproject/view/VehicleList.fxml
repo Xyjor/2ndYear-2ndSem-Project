@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="16.0" styleClass="content-area" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.VehicleListController">
+    <padding>
+        <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="12.0">
+            <children>
+                <VBox spacing="4.0">
+                    <children>
+                        <Label styleClass="section-title" text="Vehicle Records" />
+                        <Label fx:id="statusLabel" styleClass="status-text" text="Loading..." />
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                <JFXTextField fx:id="searchField" labelFloat="true" onAction="#handleSearch" prefWidth="260.0" promptText="Plate, owner, engine, or chassis" />
+                <JFXButton fx:id="searchButton" buttonType="RAISED" onAction="#handleSearch" styleClass="secondary-button" text="Search" />
+                <JFXButton fx:id="refreshButton" onAction="#handleRefresh" styleClass="secondary-button" text="Refresh" />
+                <JFXButton fx:id="newVehicleButton" buttonType="RAISED" onAction="#handleNewVehicle" styleClass="primary-button" text="New Vehicle" />
+            </children>
+        </HBox>
+        <TableView fx:id="vehicleTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="plateColumn" prefWidth="120.0" text="Plate No" />
+                <TableColumn fx:id="ownerColumn" prefWidth="210.0" text="Owner" />
+                <TableColumn fx:id="makeModelColumn" prefWidth="210.0" text="Make / Model" />
+                <TableColumn fx:id="engineColumn" prefWidth="170.0" text="Engine No" />
+                <TableColumn fx:id="chassisColumn" prefWidth="190.0" text="Chassis No" />
+                <TableColumn fx:id="updatedColumn" prefWidth="150.0" text="Updated" />
+            </columns>
+        </TableView>
+    </children>
+</VBox>

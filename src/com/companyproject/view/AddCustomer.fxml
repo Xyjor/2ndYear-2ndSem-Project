@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="content-scroll" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.companyproject.controller.AddCustomerController">
+    <content>
+        <VBox spacing="18.0" styleClass="content-area">
+            <padding>
+                <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
+            </padding>
+            <children>
+                <VBox spacing="6.0">
+                    <children>
+                        <Label styleClass="section-title" text="Customer Profile" />
+                        <Label styleClass="muted-text" text="Personal information, contacts, address, and identification" />
+                    </children>
+                </VBox>
+                <GridPane hgap="18.0" vgap="18.0">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                        <ColumnConstraints percentWidth="25.0" />
+                    </columnConstraints>
+                    <children>
+                        <JFXTextField fx:id="firstNameField" labelFloat="true" promptText="First Name *" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="middleNameField" labelFloat="true" promptText="Middle Name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="lastNameField" labelFloat="true" promptText="Last Name *" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <JFXTextField fx:id="suffixField" labelFloat="true" promptText="Suffix" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                        <DatePicker fx:id="birthDatePicker" promptText="Birth Date" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="genderComboBox" labelFloat="true" promptText="Gender" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="civilStatusComboBox" labelFloat="true" promptText="Civil Status" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="nationalityField" labelFloat="true" promptText="Nationality" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                        <JFXTextField fx:id="mobileField" labelFloat="true" promptText="Mobile Number" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="alternatePhoneField" labelFloat="true" promptText="Alternate Phone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="emailField" labelFloat="true" promptText="Email Address" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+
+                        <JFXTextField fx:id="idTypeField" labelFloat="true" promptText="Primary ID Type" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="idNumberField" labelFloat="true" promptText="Primary ID Number" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+
+                        <JFXTextField fx:id="addressLine1Field" labelFloat="true" promptText="Address Line 1 *" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="addressLine2Field" labelFloat="true" promptText="Address Line 2" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="barangayField" labelFloat="true" promptText="Barangay" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="cityField" labelFloat="true" promptText="City *" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="provinceField" labelFloat="true" promptText="Province *" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="postalCodeField" labelFloat="true" promptText="Postal Code" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                    </children>
+                </GridPane>
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <JFXButton fx:id="saveButton" buttonType="RAISED" onAction="#handleSave" styleClass="primary-button" text="Save Customer" />
+                        <JFXButton fx:id="clearButton" onAction="#clearForm" styleClass="secondary-button" text="Clear" />
+                        <ProgressIndicator fx:id="progressIndicator" maxHeight="26.0" maxWidth="26.0" />
+                        <Label fx:id="statusLabel" styleClass="status-text" />
+                        <Region HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>
