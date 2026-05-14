@@ -4,6 +4,8 @@ import com.companyproject.dao.TransactionDAO;
 import com.companyproject.model.ServiceTransaction;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -26,6 +28,7 @@ import javafx.scene.layout.BorderPane;
 
 public class TransactionListController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(TransactionListController.class);
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private final TransactionDAO transactionDAO = new TransactionDAO();
@@ -82,7 +85,7 @@ public class TransactionListController implements Initializable {
             }
         } catch (Exception exception) {
             statusLabel.setText("Unable to open the transaction form.");
-            exception.printStackTrace();
+            logger.error("Failed to load AddTransaction form", exception);
         }
     }
 
@@ -132,7 +135,7 @@ public class TransactionListController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Unable to load transactions.");
-            task.getException().printStackTrace();
+            logger.error("Failed to search transactions with keyword: {}, status: {}", keyword, status, task.getException());
         });
 
         Thread thread = new Thread(task, "transaction-search-task");
@@ -147,11 +150,10 @@ public class TransactionListController implements Initializable {
             return;
         }
 
-        Task<Void> task = new Task<Void>() {
+        Task<ServiceTransaction> task = new Task<ServiceTransaction>() {
             @Override
-            protected Void call() throws Exception {
-                transactionDAO.updateStatus(selected.getTransactionId(), status);
-                return null;
+            protected ServiceTransaction call() throws Exception {
+                return transactionDAO.updateStatus(selected.getTransactionId(), status, selected.getVersion());
             }
         };
 
@@ -163,8 +165,15 @@ public class TransactionListController implements Initializable {
         });
         task.setOnFailed(event -> {
             setBusy(false);
-            statusLabel.setText("Unable to update transaction status.");
-            task.getException().printStackTrace();
+            Throwable exception = task.getException();
+            if (exception instanceof java.util.ConcurrentModificationException) {
+                statusLabel.setText("Transaction was modified by another user. Please refresh.");
+                logger.warn("Concurrent modification detected for transaction: {}", selected.getTransactionId());
+                loadTransactions();
+            } else {
+                statusLabel.setText("Unable to update transaction status.");
+                logger.error("Failed to update transaction {} status to {}", selected.getTransactionId(), status, exception);
+            }
         });
 
         Thread thread = new Thread(task, "transaction-status-task");

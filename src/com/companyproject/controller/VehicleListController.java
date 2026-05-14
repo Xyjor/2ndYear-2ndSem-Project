@@ -4,6 +4,8 @@ import com.companyproject.dao.VehicleDAO;
 import com.companyproject.model.Vehicle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 
 public class VehicleListController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(VehicleListController.class);
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private final VehicleDAO vehicleDAO = new VehicleDAO();
@@ -71,7 +74,7 @@ public class VehicleListController implements Initializable {
             }
         } catch (Exception exception) {
             statusLabel.setText("Unable to open the vehicle form.");
-            exception.printStackTrace();
+            logger.error("Failed to load AddVehicle form", exception);
         }
     }
 
@@ -104,7 +107,7 @@ public class VehicleListController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Unable to load vehicles.");
-            task.getException().printStackTrace();
+            logger.error("Failed to search vehicles with keyword: {}", keyword, task.getException());
         });
 
         Thread thread = new Thread(task, "vehicle-search-task");

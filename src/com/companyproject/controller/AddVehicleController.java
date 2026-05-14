@@ -6,6 +6,8 @@ import com.companyproject.model.Customer;
 import com.companyproject.model.Vehicle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,6 +23,7 @@ import javafx.util.StringConverter;
 
 public class AddVehicleController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(AddVehicleController.class);
     private final CustomerDAO customerDAO = new CustomerDAO();
     private final VehicleDAO vehicleDAO = new VehicleDAO();
 
@@ -77,7 +80,7 @@ public class AddVehicleController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Save failed. Check duplicate plate, engine, or chassis numbers.");
-            task.getException().printStackTrace();
+            logger.error("Failed to create vehicle: {} {}", vehicle.getMake(), vehicle.getModel(), task.getException());
         });
 
         Thread thread = new Thread(task, "create-vehicle-task");
@@ -116,7 +119,7 @@ public class AddVehicleController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Unable to load customers.");
-            task.getException().printStackTrace();
+            logger.error("Failed to load customers for vehicle registration", task.getException());
         });
 
         Thread thread = new Thread(task, "vehicle-owner-load-task");

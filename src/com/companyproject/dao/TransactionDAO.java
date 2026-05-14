@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.UUID;
 
@@ -80,17 +81,29 @@ public class TransactionDAO {
         }
     }
 
-    public void updateStatus(UUID transactionId, String status) throws SQLException {
+    public ServiceTransaction updateStatus(UUID transactionId, String status, int version) throws SQLException {
         String sql = "UPDATE transactions SET status = ?::transaction_status, "
                 + "completed_at = CASE WHEN ? = 'COMPLETED' THEN now() ELSE completed_at END, "
-                + "version = version + 1 WHERE transaction_id = ?";
+                + "version = version + 1 "
+                + "WHERE transaction_id = ? AND version = ? "
+                + "RETURNING transaction_id, transaction_no, customer_id, vehicle_id, service_type, status, "
+                + "amount, submitted_at, completed_at, remarks, created_at, updated_at, version";
         try (Connection connection = DatabaseConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, status);
             statement.setString(2, status);
             statement.setObject(3, transactionId);
-            statement.executeUpdate();
-            connection.commit();
+            statement.setInt(4, version);
+            
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (!resultSet.next()) {
+                    connection.rollback();
+                    throw new ConcurrentModificationException("Transaction was changed by another user.");
+                }
+                ServiceTransaction transaction = mapTransaction(resultSet);
+                connection.commit();
+                return transaction;
+            }
         }
     }
 

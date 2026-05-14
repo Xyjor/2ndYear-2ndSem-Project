@@ -5,6 +5,8 @@ import com.companyproject.model.ReportSummary;
 import com.companyproject.model.ServiceCount;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableView;
 
 public class ReportsController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReportsController.class);
     private final ReportDAO reportDAO = new ReportDAO();
 
     @FXML private Label customersLabel;
@@ -64,7 +67,7 @@ public class ReportsController implements Initializable {
         task.setOnFailed(event -> {
             progressIndicator.setVisible(false);
             statusLabel.setText("Unable to load report.");
-            task.getException().printStackTrace();
+            logger.error("Failed to load reports", task.getException());
         });
 
         Thread thread = new Thread(task, "reports-load-task");

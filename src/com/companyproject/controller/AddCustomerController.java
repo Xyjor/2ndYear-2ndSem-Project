@@ -5,6 +5,8 @@ import com.companyproject.model.Customer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -17,6 +19,7 @@ import javafx.scene.control.ProgressIndicator;
 
 public class AddCustomerController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(AddCustomerController.class);
     private final CustomerDAO customerDAO = new CustomerDAO();
 
     @FXML private JFXTextField firstNameField;
@@ -75,7 +78,7 @@ public class AddCustomerController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Save failed. Please check the database connection and duplicate IDs.");
-            task.getException().printStackTrace();
+            logger.error("Failed to create customer: {} {}", customer.getFirstName(), customer.getLastName(), task.getException());
         });
 
         Thread thread = new Thread(task, "create-customer-task");

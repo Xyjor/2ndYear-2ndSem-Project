@@ -4,6 +4,8 @@ import com.companyproject.dao.CustomerDAO;
 import com.companyproject.model.Customer;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 
 public class CustomerListController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomerListController.class);
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private final CustomerDAO customerDAO = new CustomerDAO();
@@ -72,7 +75,7 @@ public class CustomerListController implements Initializable {
             }
         } catch (Exception exception) {
             statusLabel.setText("Unable to open the customer form.");
-            exception.printStackTrace();
+            logger.error("Failed to load AddCustomer form", exception);
         }
     }
 
@@ -105,7 +108,7 @@ public class CustomerListController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Unable to load customers.");
-            task.getException().printStackTrace();
+            logger.error("Failed to search customers with keyword: {}", keyword, task.getException());
         });
 
         Thread thread = new Thread(task, "customer-search-task");

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +15,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class DashboardController implements Initializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
     @FXML
     private BorderPane rootPane;
@@ -26,6 +30,29 @@ public class DashboardController implements Initializable {
     @FXML
     private Label pageTitleLabel;
 
+    @FXML
+    private com.jfoenix.controls.JFXButton customerRecordsButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton addCustomerButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton vehicleRecordsButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton addVehicleButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton transactionsButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton newTransactionButton;
+
+    @FXML
+    private com.jfoenix.controls.JFXButton reportsButton;
+
+    private String userRole;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showCustomerRecords();
@@ -34,6 +61,35 @@ public class DashboardController implements Initializable {
     public void setAuthenticatedUser(String fullName, String role) {
         userLabel.setText(fullName);
         roleLabel.setText(role);
+        this.userRole = role;
+        applyRoleBasedAccessControl();
+    }
+
+    private void applyRoleBasedAccessControl() {
+        if ("CLERK".equals(userRole)) {
+            // CLERK can view records but cannot create/edit/delete
+            addCustomerButton.setDisable(true);
+            addVehicleButton.setDisable(true);
+            newTransactionButton.setDisable(true);
+            
+            // Provide tooltip explanation
+            addCustomerButton.setStyle("-fx-opacity: 0.5;");
+            addVehicleButton.setStyle("-fx-opacity: 0.5;");
+            newTransactionButton.setStyle("-fx-opacity: 0.5;");
+            
+            logger.info("RBAC applied: CLERK role - limited to view-only operations");
+        } else if ("MANAGER".equals(userRole)) {
+            // MANAGER has full access
+            addCustomerButton.setDisable(false);
+            addVehicleButton.setDisable(false);
+            newTransactionButton.setDisable(false);
+            
+            addCustomerButton.setStyle("");
+            addVehicleButton.setStyle("");
+            newTransactionButton.setStyle("");
+            
+            logger.info("RBAC applied: MANAGER role - full access");
+        }
     }
 
     @FXML
@@ -80,7 +136,7 @@ public class DashboardController implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/com/companyproject/view/style.css").toExternalForm());
             stage.setScene(scene);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Failed to load Login form", exception);
         }
     }
 
@@ -90,7 +146,7 @@ public class DashboardController implements Initializable {
             rootPane.setCenter(content);
             pageTitleLabel.setText(title);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Failed to load screen: {}", fxmlPath, exception);
         }
     }
 }

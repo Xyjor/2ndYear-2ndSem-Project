@@ -8,6 +8,8 @@ import com.companyproject.model.ServiceTransaction;
 import com.companyproject.model.Vehicle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ import javafx.util.StringConverter;
 
 public class AddTransactionController implements Initializable {
 
+    private static final Logger logger = LoggerFactory.getLogger(AddTransactionController.class);
     private static final DateTimeFormatter TRANSACTION_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
     private final CustomerDAO customerDAO = new CustomerDAO();
@@ -76,7 +79,7 @@ public class AddTransactionController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Save failed. Check transaction number and required fields.");
-            task.getException().printStackTrace();
+            logger.error("Failed to create transaction: {}", transaction.getTransactionNo(), task.getException());
         });
 
         Thread thread = new Thread(task, "create-transaction-task");
@@ -146,7 +149,7 @@ public class AddTransactionController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             statusLabel.setText("Unable to load customers and vehicles.");
-            task.getException().printStackTrace();
+            logger.error("Failed to load customer and vehicle lookups", task.getException());
         });
 
         Thread thread = new Thread(task, "transaction-lookup-task");

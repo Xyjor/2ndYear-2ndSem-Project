@@ -34,13 +34,13 @@
                 <Insets bottom="18.0" left="16.0" right="16.0" top="18.0" />
             </padding>
             <children>
-                <JFXButton maxWidth="Infinity" onAction="#showCustomerRecords" styleClass="nav-button" text="Customer Records" />
-                <JFXButton maxWidth="Infinity" onAction="#showAddCustomer" styleClass="nav-button" text="Add Customer" />
-                <JFXButton maxWidth="Infinity" onAction="#showVehicleRecords" styleClass="nav-button" text="Vehicle Records" />
-                <JFXButton maxWidth="Infinity" onAction="#showAddVehicle" styleClass="nav-button" text="Add Vehicle" />
-                <JFXButton maxWidth="Infinity" onAction="#showTransactions" styleClass="nav-button" text="Transactions" />
-                <JFXButton maxWidth="Infinity" onAction="#showNewTransaction" styleClass="nav-button" text="New Transaction" />
-                <JFXButton maxWidth="Infinity" onAction="#showReports" styleClass="nav-button" text="Reports" />
+                <JFXButton fx:id="customerRecordsButton" maxWidth="Infinity" onAction="#showCustomerRecords" styleClass="nav-button" text="Customer Records" />
+                <JFXButton fx:id="addCustomerButton" maxWidth="Infinity" onAction="#showAddCustomer" styleClass="nav-button" text="Add Customer" />
+                <JFXButton fx:id="vehicleRecordsButton" maxWidth="Infinity" onAction="#showVehicleRecords" styleClass="nav-button" text="Vehicle Records" />
+                <JFXButton fx:id="addVehicleButton" maxWidth="Infinity" onAction="#showAddVehicle" styleClass="nav-button" text="Add Vehicle" />
+                <JFXButton fx:id="transactionsButton" maxWidth="Infinity" onAction="#showTransactions" styleClass="nav-button" text="Transactions" />
+                <JFXButton fx:id="newTransactionButton" maxWidth="Infinity" onAction="#showNewTransaction" styleClass="nav-button" text="New Transaction" />
+                <JFXButton fx:id="reportsButton" maxWidth="Infinity" onAction="#showReports" styleClass="nav-button" text="Reports" />
             </children>
         </VBox>
     </left>

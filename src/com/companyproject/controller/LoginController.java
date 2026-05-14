@@ -4,6 +4,8 @@ import com.companyproject.config.DatabaseConnection;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +22,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @FXML
     private JFXTextField usernameField;
@@ -71,7 +75,7 @@ public class LoginController implements Initializable {
         task.setOnFailed(event -> {
             setBusy(false);
             showMessage("Unable to connect to the database.");
-            task.getException().printStackTrace();
+            logger.error("Failed to authenticate user: {}", username, task.getException());
         });
 
         Thread thread = new Thread(task, "login-task");
@@ -114,7 +118,7 @@ public class LoginController implements Initializable {
             stage.centerOnScreen();
         } catch (Exception exception) {
             showMessage("Unable to open dashboard.");
-            exception.printStackTrace();
+            logger.error("Failed to load dashboard for user: {}", user.fullName, exception);
         }
     }
 
